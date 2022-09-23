@@ -3,8 +3,6 @@ import {Index, save} from "../controllers/userController.js"
 
 const router = express.Router();
 
-router.get("/", Index);
-
-router.post("/",save);
+router.route("/").get(Index).post(save);
 
 export default router;

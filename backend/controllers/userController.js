@@ -1,16 +1,21 @@
-import UserModel from "../models/UserModel.js";
+import UserService from "../services/UserService.js";
 
 export const Index = async(req,res) =>{
-    const users = await UserModel.find();
-    console.log(users);
-    res.json(users);
+    try{
+        const users= await UserService.findAll();
+        res.json({data:users ,status:"success"});
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error:err});
+    }
 }
 
 export const save = async(req,res) =>{
-    let body = req.body;
-    let user = new UserModel({username:body.username, password:body.password, gender:body.gender});
-    user.save((err) =>{
-        if (err) {res.send(err); return}
-        res.send("ok");
-    })
+    try{
+        const user= await UserService.create(req.body);
+        res.json({data:user ,status:"success"});
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error:err});
+    }
 }

@@ -14,9 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
 app.use(express.static(path.join(path.resolve(), "/public/")));
 app.use(cors({ origin: HOST, optionsSuccessStatus: 200 }));
+app.get('/favicon.ico', (req, res) => res.status(204));
 router.map((route) => {
   app.use(route);
-})
+});
 
 const conectionString = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.vtlhiio.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`;
 
